@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Inspiration Library — Bhaktivedanta College</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #faf8f3;
+    --parchment: #f2ede0;
+    --gold: #b8973a;
+    --gold-light: #d4b060;
+    --gold-dark: #8a6e22;
+    --ink: #2a2318;
+    --ink-mid: #4a3f2e;
+    --ink-soft: #7a6e5a;
+    --ink-faint: #b5a990;
+    --border: rgba(184,151,58,0.25);
+    --border-strong: rgba(184,151,58,0.5);
+    --shadow: rgba(42,35,24,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background-color: var(--cream);
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    border-bottom: 0.5px solid var(--border-strong);
+    padding: 2.5rem 4vw 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background: var(--cream);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-area {}
+  .college-name {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.2rem;
+  }
+  .library-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+  .library-title em {
+    font-style: italic;
+    color: var(--gold-dark);
+  }
+
+  nav {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  nav a {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--gold-dark); }
+
+  /* ---- HERO ---- */
+  .hero {
+    padding: 5rem 4vw 4rem;
+    border-bottom: 0.5px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-text h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .hero-text h1 em {
+    font-style: italic;
+    color: var(--gold-dark);
+    display: block;
+  }
+  .hero-text p {
+    font-size: 1rem;
+    color: var(--ink-mid);
+    max-width: 42ch;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .hero-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 1.5rem 0;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 2rem;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--gold-dark);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 0.2rem;
+  }
+
+  .hero-ornament {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .ornament-circle {
+    width: clamp(220px, 28vw, 340px);
+    height: clamp(220px, 28vw, 340px);
+    border-radius: 50%;
+    border: 0.5px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .ornament-circle::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    border: 0.5px solid var(--border);
+  }
+  .ornament-lotus {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    color: var(--gold);
+    opacity: 0.7;
+    text-align: center;
+    line-height: 1;
+  }
+  .ornament-quote {
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cream);
+    padding: 0 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  /* ---- FILTER BAR ---- */
+  .filter-section {
+    padding: 2rem 4vw;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .filter-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .pill {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 1rem;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 100px;
+    background: transparent;
+    color: var(--ink-mid);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pill:hover {
+    border-color: var(--gold);
+    color: var(--gold-dark);
+  }
+  .pill.active {
+    background: var(--gold-dark);
+    border-color: var(--gold-dark);
+    color: var(--cream);
+  }
+
+  .search-wrap {
+    margin-left: auto;
+    position: relative;
+  }
+  .search-input {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 300;
+    padding: 0.4rem 1rem 0.4rem 2.2rem;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 100px;
+    background: transparent;
+    color: var(--ink);
+    width: 220px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input::placeholder { color: var(--ink-faint); }
+  .search-input:focus { border-color: var(--gold); }
+  .search-icon {
+    position: absolute;
+    left: 0.7rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+    pointer-events: none;
+  }
+
+  /* ---- GRID ---- */
+  .library-section {
+    padding: 3rem 4vw;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .section-heading h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .section-count {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    font-weight: 300;
+  }
+
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5px;
+    border: 0.5px solid var(--border);
+  }
+
+  .resource-card {
+    background: var(--cream);
+    border: 0.5px solid var(--border);
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .resource-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .resource-card:hover {
+    background: var(--parchment);
+  }
+  .resource-card:hover::before {
+    opacity: 1;
+  }
+
+  .card-tag {
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 400;
+    margin-bottom: 0.6rem;
+  }
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 0.6rem;
+  }
+  .card-meta {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    font-weight: 300;
+  }
+  .card-meta span { margin-right: 0.8rem; }
+  .card-arrow {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.2rem;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .resource-card:hover .card-arrow {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    grid-column: 1 / -1;
+    color: var(--ink-soft);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 2rem 4vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-text {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    font-weight: 300;
+  }
+  .footer-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 720px) {
+    header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-ornament { display: none; }
+    .search-wrap { margin-left: 0; width: 100%; }
+    .search-input { width: 100%; }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-area">
+    <div class="college-name">Bhaktivedanta College</div>
+    <div class="library-title">The <em>Inspiration</em> Library</div>
+  </div>
+  <nav>
+    <a href="#classes">Lectures</a>
+    <a href="#seminars">Seminars</a>
+    <a href="#articles">Articles</a>
+    <a href="https://gopinath-ochs.github.io/bc-learning-community/" target="_blank">Learning Community</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>
+      A curated space for
+      <em>deep learning</em>
+    </h1>
+    <div class="hero-divider"></div>
+    <p>Lectures, seminars, and writings from the scholars of Bhaktivedanta College — gathered here for students of the online campus and guests of our residential programmes.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num" id="total-count">—</div>
+        <div class="stat-label">Resources</div>
+      </div>
+      <div>
+        <div class="stat-num">5</div>
+        <div class="stat-label">Scholars</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Formats</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-ornament">
+    <div class="ornament-circle">
+      <div class="ornament-lotus">☸</div>
+      <div class="ornament-quote">Śāstra — sacred study</div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<section class="filter-section">
+  <span class="filter-label">Browse by</span>
+  <div class="filter-pills">
+    <button class="pill active" data-filter="all">All resources</button>
+    <button class="pill" data-filter="lecture">Lectures</button>
+    <button class="pill" data-filter="seminar">Seminars</button>
+    <button class="pill" data-filter="article">Articles</button>
+    <button class="pill" data-speaker="Krishna Kshetra Swami">Krishna Kshetra Swami</button>
+    <button class="pill" data-speaker="Radhika Raman Das">Radhika Raman Das</button>
+    <button class="pill" data-speaker="Gopinathacharya Das">Gopinathacharya Das</button>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" class="search-input" placeholder="Search titles, topics…" id="search-input">
+  </div>
+</section>
+
+<!-- LIBRARY GRID -->
+<section class="library-section" id="all-resources">
+  <div class="section-heading">
+    <h2>All Resources</h2>
+    <span class="section-count" id="result-count"></span>
+  </div>
+  <div class="resources-grid" id="grid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2026 Bhaktivedanta College · Tiegemberg, Belgium</div>
+  <div class="footer-note">Growing with every course</div>
+</footer>
+
+<script>
+const resources = [
+  {
+    id: 1,
+    type: "lecture",
+    speaker: "Krishna Kshetra Swami",
+    title: "Tacit Knowledge Survey for ISKCON Leaders",
+    url: "https://www.youtube.com/watch?v=y0seS90RlVE",
+    year: 2018,
+    format: "Interview",
+    topics: "Vision for ISKCON's future"
+  },
+  {
+    id: 2,
+    type: "lecture",
+    speaker: "Krishna Kshetra Swami",
+    title: "Srimad Bhagavatam 3.23.14–16",
+    url: "https://www.youtube.com/live/9e17r6Bb1XU",
+    year: 2026,
+    format: "Lecture",
+    topics: "KC as a process of alchemy"
+  },
+  {
+    id: 3,
+    type: "lecture",
+    speaker: "Radhika Raman Das",
+    title: "Mahaprabhu as a Philosopher: Dialogues with Sarvabhauma Bhattacarya and Prakasananda Saraswat",
+    url: "https://www.youtube.com/watch?v=oX0r_p1NCnE",
+    year: 2021,
+    format: "Online lecture",
+    topics: ""
+  },
+  {
+    id: 4,
+    type: "lecture",
+    speaker: "Radhika Raman Das",
+    title: "Death — an Axe, Tool and an Invitation",
+    url: "https://www.youtube.com/watch?v=x0JpnZ2nAu8",
+    year: 2018,
+    format: "Lecture",
+    topics: ""
+  },
+  {
+    id: 5,
+    type: "lecture",
+    speaker: "Radhika Raman Das",
+    title: "The Art of Meaningful Association",
+    url: "https://www.youtube.com/watch?v=V5W7cr0nXQ0",
+    year: 2022,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 6,
+    type: "lecture",
+    speaker: "Gopinathacharya Das",
+    title: "Srimad Bhagavatam 10.87.23",
+    url: "https://www.youtube.com/watch?v=V91wgMJylnI",
+    year: 2025,
+    format: "Lecture",
+    topics: ""
+  },
+  {
+    id: 7,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "The Allure of Mayavadi Philosophy, and How to Refute It — Part 1",
+    url: "https://www.youtube.com/watch?v=DzlaTULl1oU",
+    year: 2019,
+    format: "Seminar",
+    topics: "Mayavada"
+  },
+  {
+    id: 8,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "The Allure of Mayavadi Philosophy, and How to Refute It — Part 2",
+    url: "https://www.youtube.com/watch?v=3Vy0XnctPjE",
+    year: 2019,
+    format: "Seminar",
+    topics: "Mayavada"
+  },
+  {
+    id: 9,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "The Allure of Mayavadi Philosophy, and How to Refute It — Part 3",
+    url: "https://www.youtube.com/watch?v=7MM3eddoFCY",
+    year: 2019,
+    format: "Seminar",
+    topics: "Mayavada"
+  },
+  {
+    id: 10,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Tattva Sandarbha — Part 1",
+    url: "https://www.youtube.com/watch?v=_2A02E_47ho",
+    year: 2014,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 11,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Tattva Sandarbha — Part 2",
+    url: "https://www.youtube.com/watch?v=zLwqS5hU9-8",
+    year: 2014,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 12,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Tattva Sandarbha — Part 3",
+    url: "https://www.youtube.com/watch?v=FMp5EyYfT9Q",
+    year: 2014,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 13,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Glories of Srimad Bhagavatam — Part 1",
+    url: "https://www.youtube.com/watch?v=JREYpBib_nc",
+    year: 2015,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 14,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Glories of Srimad Bhagavatam — Part 2",
+    url: "https://www.youtube.com/watch?v=4Ua_mH5j9gk",
+    year: 2015,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 15,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Forgiveness: Lessons from Srimad Bhagavatam — Part 1",
+    url: "https://www.youtube.com/watch?v=y06mjJk0fmo",
+    year: 2018,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 16,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Forgiveness: Lessons from Srimad Bhagavatam — Part 2",
+    url: "https://www.youtube.com/watch?v=HdfeTZSXAW8",
+    year: 2018,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 17,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Forgiveness: Lessons from Srimad Bhagavatam — Part 3",
+    url: "https://www.youtube.com/watch?v=Dmruv9xVXrs",
+    year: 2018,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 18,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Sanskrit for Scriptural Study — Part 1",
+    url: "https://www.youtube.com/watch?v=P-ZuIQUH96o",
+    year: 2017,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 19,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Sanskrit for Scriptural Study — Part 2",
+    url: "https://www.youtube.com/watch?v=FAaXlR_xacA",
+    year: 2017,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 20,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Sanskrit for Scriptural Study — Part 3",
+    url: "https://www.youtube.com/watch?v=vqHjaWagHeU",
+    year: 2017,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 21,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Churning the Ocean of Shastra — Part 1",
+    url: "https://www.youtube.com/watch?v=qFPUiT-Pvw0",
+    year: 2026,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 22,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Churning the Ocean of Shastra — Part 2",
+    url: "https://www.youtube.com/watch?v=UbRsoZSG3eU",
+    year: 2026,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 23,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Churning the Ocean of Shastra — Part 3",
+    url: "https://www.youtube.com/watch?v=in9nPksOEbo",
+    year: 2026,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 24,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "As It Was: Rethinking the Editing of Srila Prabhupada's Books",
+    url: "https://www.youtube.com/watch?v=yb2RcUdBoLA",
+    year: 2023,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 25,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Tips for Talking to Krishna — Part 1",
+    url: "https://www.youtube.com/watch?v=im_EtCN3jOU",
+    year: null,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 26,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Tips for Talking to Krishna — Part 2",
+    url: "https://www.youtube.com/watch?v=3Egy5KMt118",
+    year: null,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 27,
+    type: "seminar",
+    speaker: "Radhika Raman Das",
+    title: "Tips for Talking to Krishna — Part 3",
+    url: "https://www.youtube.com/watch?v=ihFwEtpwW-w",
+    year: null,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 28,
+    type: "seminar",
+    speaker: "Bhaktivedanta College Faculty",
+    title: "The Art of Speaking for Krishna — Session 1",
+    url: "https://www.youtube.com/watch?v=K4IETgjgrwo",
+    year: 2022,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 29,
+    type: "seminar",
+    speaker: "Bhaktivedanta College Faculty",
+    title: "The Art of Speaking for Krishna — Session 2",
+    url: "https://www.youtube.com/watch?v=-v1kCW4o9UA",
+    year: 2022,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 30,
+    type: "seminar",
+    speaker: "Bhaktivedanta College Faculty",
+    title: "The Art of Speaking for Krishna — Session 3",
+    url: "https://www.youtube.com/watch?v=GE9B1XlOCzw",
+    year: 2022,
+    format: "Seminar",
+    topics: ""
+  },
+  {
+    id: 31,
+    type: "article",
+    speaker: "Krishna Kshetra Swami",
+    title: "Yoga: The Essence of Animal Ethics, Kinship, and Rewilding",
+    url: "https://www.psychologytoday.com/us/blog/animal-emotions/202601/yoga-the-essence-of-animal-ethics-kinship-and-rewilding",
+    year: 2026,
+    format: "Article",
+    topics: "Yoga and Animal Ethics"
+  }
+];
+
+document.getElementById('total-count').textContent = resources.length;
+
+let activeFilter = 'all';
+let activeSpeaker = null;
+let searchQuery = '';
+
+function typeLabel(type) {
+  return type === 'lecture' ? 'Lecture' : type === 'seminar' ? 'Seminar' : 'Article';
+}
+
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  const query = searchQuery.toLowerCase();
+
+  const filtered = resources.filter(r => {
+    const matchesFilter = activeFilter === 'all' || r.type === activeFilter;
+    const matchesSpeaker = !activeSpeaker || r.speaker === activeSpeaker;
+    const matchesSearch = !query || 
+      r.title.toLowerCase().includes(query) ||
+      r.speaker.toLowerCase().includes(query) ||
+      (r.topics && r.topics.toLowerCase().includes(query));
+    return matchesFilter && matchesSpeaker && matchesSearch;
+  });
+
+  document.getElementById('result-count').textContent = 
+    filtered.length === resources.length ? `${resources.length} resources` : `${filtered.length} of ${resources.length}`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="no-results">No resources found for this search.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(r => `
+    <a href="${r.url}" target="_blank" rel="noopener" class="resource-card">
+      <div class="card-tag">${typeLabel(r.type)}${r.topics ? ' · ' + r.topics : ''}</div>
+      <div class="card-title">${r.title}</div>
+      <div class="card-meta">
+        <span>${r.speaker}</span>
+        ${r.year ? `<span>${r.year}</span>` : ''}
+        <span>${r.format}</span>
+      </div>
+      <div class="card-arrow">↗</div>
+    </a>
+  `).join('');
+}
+
+document.querySelectorAll('.pill[data-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeFilter = btn.dataset.filter;
+    activeSpeaker = null;
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    renderGrid();
+  });
+});
+
+document.querySelectorAll('.pill[data-speaker]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (activeSpeaker === btn.dataset.speaker) {
+      activeSpeaker = null;
+      btn.classList.remove('active');
+    } else {
+      activeSpeaker = btn.dataset.speaker;
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    renderGrid();
+  });
+});
+
+document.getElementById('search-input').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  renderGrid();
+});
+
+renderGrid();
+</script>
+</body>
+</html>
