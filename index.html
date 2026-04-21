@@ -1,32 +1,399 @@
-BHAKTIVEDANTA COLLEGE
-The Inspiration Library
-RESOURCES
-TUTORS
-LEARNING COMMUNITY
-A curated space for
-deep learning
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Inspiration Library — Bhaktivedanta College</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #faf8f3; --parchment: #f2ede0; --gold: #b8973a;
+    --gold-light: #d4b060; --gold-dark: #8a6e22; --ink: #2a2318;
+    --ink-mid: #4a3f2e; --ink-soft: #7a6e5a; --ink-faint: #b5a990;
+    --border: rgba(184,151,58,0.25); --border-strong: rgba(184,151,58,0.5);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background-color: var(--cream); color: var(--ink); font-weight: 300; line-height: 1.7; min-height: 100vh; }
 
-Lectures, seminars, and writings from the scholars of Bhaktivedanta College — gathered here for students of the online campus and guests of our residential programmes.
-—
-RESOURCES
-12
-SCHOLARS
-4
-FORMATS
-☸
-Śāstra — sacred study
-BROWSE BY
-All resources
-Lectures
-Seminars
-Publications
-Articles
-⌕
-All Resources
+  header { border-bottom: 0.5px solid var(--border-strong); padding: 2.5rem 4vw 2rem; display: flex; justify-content: space-between; align-items: flex-end; background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .college-name { font-weight: 300; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.2rem; }
+  .library-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--ink); line-height: 1.1; }
+  .library-title em { font-style: italic; color: var(--gold-dark); }
+  nav { display: flex; gap: 2rem; align-items: center; }
+  nav a { font-weight: 300; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; transition: color 0.2s; }
+  nav a:hover { color: var(--gold-dark); }
 
+  .hero { padding: 5rem 4vw 4rem; border-bottom: 0.5px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .hero-text h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem,5vw,4.2rem); font-weight: 300; line-height: 1.15; margin-bottom: 1.5rem; }
+  .hero-text h1 em { font-style: italic; color: var(--gold-dark); display: block; }
+  .hero-text p { font-size: 1rem; color: var(--ink-mid); max-width: 42ch; line-height: 1.8; font-weight: 300; }
+  .hero-divider { width: 40px; height: 1px; background: var(--gold); margin: 1.5rem 0; }
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 2rem; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--gold-dark); line-height: 1; }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-top: 0.2rem; }
+  .hero-ornament { display: flex; justify-content: center; align-items: center; }
+  .ornament-circle { width: clamp(220px,28vw,340px); height: clamp(220px,28vw,340px); border-radius: 50%; border: 0.5px solid var(--border-strong); display: flex; align-items: center; justify-content: center; position: relative; }
+  .ornament-circle::before { content: ''; position: absolute; inset: 12px; border-radius: 50%; border: 0.5px solid var(--border); }
+  .ornament-lotus { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; color: var(--gold); opacity: 0.7; }
+  .ornament-quote { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); background: var(--cream); padding: 0 1rem; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.85rem; color: var(--ink-soft); white-space: nowrap; }
 
-Loading the library…
-Our Tutors
-Click a name to see all their contributions in the library
-© 2026 Bhaktivedanta College · Tiegemberg, Belgium
-Growing with every course
+  .filter-section { padding: 2rem 4vw; border-bottom: 0.5px solid var(--border); display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+  .filter-label { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); }
+  .filter-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .pill { font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 400; letter-spacing: 0.06em; padding: 0.35rem 1rem; border: 0.5px solid var(--border-strong); border-radius: 100px; background: transparent; color: var(--ink-mid); cursor: pointer; transition: all 0.2s; }
+  .pill:hover { border-color: var(--gold); color: var(--gold-dark); }
+  .pill.active { background: var(--gold-dark); border-color: var(--gold-dark); color: var(--cream); }
+  .search-wrap { margin-left: auto; position: relative; }
+  .search-input { font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 300; padding: 0.4rem 1rem 0.4rem 2.2rem; border: 0.5px solid var(--border-strong); border-radius: 100px; background: transparent; color: var(--ink); width: 240px; outline: none; transition: border-color 0.2s; }
+  .search-input::placeholder { color: var(--ink-faint); }
+  .search-input:focus { border-color: var(--gold); }
+  .search-icon { position: absolute; left: 0.7rem; top: 50%; transform: translateY(-50%); color: var(--ink-faint); font-size: 0.85rem; pointer-events: none; }
+
+  .library-section { padding: 3rem 4vw; }
+  .section-heading { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 0.5px solid var(--border); }
+  .section-heading h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; }
+  .section-count { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--ink-faint); font-weight: 300; }
+  .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 1.5px; border: 0.5px solid var(--border); }
+
+  .resource-card { background: var(--cream); border: 0.5px solid var(--border); padding: 1.5rem; text-decoration: none; color: inherit; display: block; transition: background 0.2s; position: relative; overflow: hidden; }
+  .resource-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--gold); opacity: 0; transition: opacity 0.2s; }
+  .resource-card:hover { background: var(--parchment); }
+  .resource-card:hover::before { opacity: 1; }
+  .card-tag { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dark); font-weight: 400; margin-bottom: 0.6rem; }
+  .card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 500; line-height: 1.35; margin-bottom: 0.6rem; }
+  .card-meta { font-size: 0.78rem; color: var(--ink-soft); font-weight: 300; }
+  .card-meta span { margin-right: 0.8rem; }
+  .card-arrow { position: absolute; bottom: 1rem; right: 1.2rem; font-size: 0.8rem; color: var(--ink-faint); opacity: 0; transition: opacity 0.2s, transform 0.2s; }
+  .resource-card:hover .card-arrow { opacity: 1; transform: translate(2px,-2px); }
+
+  .series-card { background: var(--cream); border: 0.5px solid var(--border); position: relative; overflow: hidden; }
+  .series-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--gold-light); opacity: 0; transition: opacity 0.2s; }
+  .series-card:hover::before { opacity: 1; }
+  .series-header { padding: 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; user-select: none; }
+  .series-header:hover { background: var(--parchment); }
+  .series-header-text { flex: 1; }
+  .series-toggle { font-size: 0.9rem; color: var(--ink-faint); transition: transform 0.3s; flex-shrink: 0; margin-top: 0.2rem; }
+  .series-card.open .series-toggle { transform: rotate(180deg); }
+  .series-parts { display: none; border-top: 0.5px solid var(--border); }
+  .series-card.open .series-parts { display: block; }
+  .series-part { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1.5rem; text-decoration: none; color: var(--ink-mid); border-bottom: 0.5px solid var(--border); font-size: 0.88rem; transition: background 0.15s; background: var(--parchment); }
+  .series-part:last-child { border-bottom: none; }
+  .series-part:hover { background: #e8e0cc; }
+  .part-num { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--gold-dark); min-width: 1.5rem; }
+  .part-label { flex: 1; }
+  .part-arrow { font-size: 0.75rem; color: var(--ink-faint); }
+
+  .loading-state { text-align: center; padding: 5rem 2rem; grid-column: 1/-1; }
+  .loading-spinner { width: 32px; height: 32px; border: 1px solid var(--border-strong); border-top-color: var(--gold-dark); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-faint); font-size: 1rem; }
+  .no-results { text-align: center; padding: 4rem 2rem; grid-column: 1/-1; color: var(--ink-soft); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; }
+  .error-state { padding: 3rem 2rem; grid-column: 1/-1; color: var(--ink-soft); font-size: 0.88rem; line-height: 1.8; text-align: center; }
+
+  .tutors-section { padding: 3rem 4vw; border-top: 0.5px solid var(--border); background: var(--parchment); }
+  .tutors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .tutor-card { background: var(--cream); border: 0.5px solid var(--border-strong); padding: 1.5rem; cursor: pointer; transition: all 0.2s; position: relative; }
+  .tutor-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--gold); opacity: 0; transition: opacity 0.2s; }
+  .tutor-card:hover::before, .tutor-card.highlighted::before { opacity: 1; }
+  .tutor-card:hover { background: #f5f0e4; }
+  .tutor-card.highlighted { border-color: var(--gold); background: #f5f0e4; }
+  .tutor-initial { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--gold-dark); line-height: 1; margin-bottom: 0.7rem; opacity: 0.6; }
+  .tutor-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 500; margin-bottom: 0.4rem; }
+  .tutor-bio { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.6; font-weight: 300; font-style: italic; }
+  .tutor-count { margin-top: 0.8rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dark); }
+  .tutor-filter-hint { font-size: 0.72rem; color: var(--ink-faint); margin-top: 0.3rem; }
+
+  footer { border-top: 0.5px solid var(--border); padding: 2rem 4vw; display: flex; justify-content: space-between; align-items: center; }
+  .footer-text { font-size: 0.78rem; color: var(--ink-soft); font-weight: 300; }
+  .footer-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: var(--ink-faint); }
+
+  @media (max-width: 720px) {
+    header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-ornament { display: none; }
+    .search-wrap { margin-left: 0; width: 100%; }
+    .search-input { width: 100%; }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="college-name">Bhaktivedanta College</div>
+    <div class="library-title">The <em>Inspiration</em> Library</div>
+  </div>
+  <nav>
+    <a href="#all-resources">Resources</a>
+    <a href="#tutors">Tutors</a>
+    <a href="https://gopinath-ochs.github.io/bc-learning-community/" target="_blank">Learning Community</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>A curated space for <em>deep learning</em></h1>
+    <div class="hero-divider"></div>
+    <p>Lectures, seminars, and writings from the scholars of Bhaktivedanta College — gathered here for students of the online campus and guests of our residential programmes.</p>
+    <div class="hero-stats">
+      <div><div class="stat-num" id="total-count">—</div><div class="stat-label">Resources</div></div>
+      <div><div class="stat-num">12</div><div class="stat-label">Scholars</div></div>
+      <div><div class="stat-num">4</div><div class="stat-label">Formats</div></div>
+    </div>
+  </div>
+  <div class="hero-ornament">
+    <div class="ornament-circle">
+      <div class="ornament-lotus">☸</div>
+      <div class="ornament-quote">Śāstra — sacred study</div>
+    </div>
+  </div>
+</section>
+
+<section class="filter-section">
+  <span class="filter-label">Browse by</span>
+  <div class="filter-pills">
+    <button class="pill active" data-filter="all">All resources</button>
+    <button class="pill" data-filter="lecture">Lectures</button>
+    <button class="pill" data-filter="seminar">Seminars</button>
+    <button class="pill" data-filter="publication">Publications</button>
+    <button class="pill" data-filter="article">Articles</button>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" class="search-input" placeholder="Search titles, speakers, topics…" id="search-input">
+  </div>
+</section>
+
+<section class="library-section" id="all-resources">
+  <div class="section-heading">
+    <h2>All Resources</h2>
+    <span class="section-count" id="result-count"></span>
+  </div>
+  <div class="resources-grid" id="grid">
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Loading the library…</div>
+    </div>
+  </div>
+</section>
+
+<section class="tutors-section" id="tutors">
+  <div class="section-heading">
+    <h2>Our Tutors</h2>
+    <span class="section-count">Click a name to see all their contributions in the library</span>
+  </div>
+  <div class="tutors-grid" id="tutors-grid"></div>
+</section>
+
+<footer>
+  <div class="footer-text">© 2026 Bhaktivedanta College · Tiegemberg, Belgium</div>
+  <div class="footer-note">Growing with every course</div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// GOOGLE SHEETS — reads live from your published sheet
+// To update the library: just edit the Google Sheet.
+// Uses the Sheets JSON API (no CORS issues on GitHub Pages)
+// ═══════════════════════════════════════════════════════
+const SHEET_ID = '1oFkCe1AVsTCvqhAPpZMX6URDO7jqorOJBOvKTPQUOls';
+const SHEETS = [
+  { gid: '0',          type: 'lecture'     },
+  { gid: '1774811014', type: 'seminar'     },
+  { gid: '1177081636', type: 'publication' },
+  { gid: '1559528348', type: 'article'     },
+];
+
+// ═══════════════════════════════════════════════════════
+// TUTORS — edit the bio field for each tutor.
+// ═══════════════════════════════════════════════════════
+const TUTORS = [
+  { name:"Gopinathacarya Prabhu",  speaker:"Gopinathacharya Das",   bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+  { name:"Krishna Ksetra Swami",   speaker:"Krishna Kshetra Swami", bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+  { name:"Bhrigupada Prabhu",      speaker:"Bhrigupada Prabhu",     bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+  { name:"Pranava Prabhu",         speaker:"Pranava Prabhu",        bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+  { name:"Arya Prabhu",            speaker:"Arya Prabhu",           bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+  { name:"Yogeshvar Prabhu",       speaker:"Yogeshvar Prabhu",      bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+  { name:"Rasamandala Prabhu",     speaker:"Rasamandala Prabhu",    bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+  { name:"Gopal Hari Prabhu",      speaker:"Gopal Hari Prabhu",     bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+  { name:"Shaunaka Rishi Prabhu",  speaker:"Shaunaka Rishi Prabhu", bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+  { name:"Krsna Sarana Prabhu",    speaker:"Krsna Sarana Prabhu",   bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+  { name:"Ramhari Prabhu",         speaker:"Ramhari Prabhu",        bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+  { name:"Radhika Raman Prabhu",   speaker:"Radhika Raman Das",     bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
+];
+
+// ── Fetch one sheet via JSON API (no CORS issues) ────────────────
+async function fetchSheet({ gid, type }) {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${gid}`;
+  try {
+    const res  = await fetch(url);
+    const text = await res.text();
+    // Google wraps the JSON in  /*O_o*/\ngoogle.visualization.Query.setResponse(...)
+    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);
+    const cols = json.table.cols.map(c => (c.label || c.id).toLowerCase().trim());
+    return (json.table.rows || []).map((row, i) => {
+      const get = (...candidates) => {
+        for (const c of candidates) {
+          const idx = cols.findIndex(h => h.includes(c));
+          if (idx !== -1 && row.c[idx] && row.c[idx].v != null) {
+            return String(row.c[idx].v).trim();
+          }
+        }
+        return '';
+      };
+      const speaker = get('speaker','tutor','author','presenter');
+      const title   = get('title','name','talk','seminar','article','publication','book');
+      const url2    = get('youtube','link','url','http');
+      const year    = parseInt(get('year','date')) || null;
+      const format  = get('format','type','medium');
+      const topics  = get('topic','key','subject','theme','tag');
+      if (!title && !url2) return null;
+      return { id: type+'_'+i, type, speaker, title, url: url2, year, format, topics, isSeries: false };
+    }).filter(Boolean);
+  } catch(e) {
+    console.warn('Failed to load sheet gid='+gid, e);
+    return [];
+  }
+}
+
+// ── Auto-group multi-part series ─────────────────────────────────
+function groupSeries(items) {
+  const map = {}, out = [];
+  items.forEach(r => {
+    const m = r.title.match(/^(.*?)\s*[-–—]?\s*(part|session|deel)\s*(\d+)\s*$/i);
+    if (m) {
+      const base  = m[1].trim();
+      const label = m[2].charAt(0).toUpperCase() + m[2].slice(1).toLowerCase() + ' ' + m[3];
+      const key   = r.type + '|' + base.toLowerCase() + '|' + (r.speaker||'').toLowerCase();
+      if (!map[key]) map[key] = { id:'s_'+Object.keys(map).length, type:r.type, speaker:r.speaker, title:base, year:r.year, topics:r.topics, isSeries:true, parts:[] };
+      map[key].parts.push({ label, url: r.url });
+      if (r.year && (!map[key].year || r.year < map[key].year)) map[key].year = r.year;
+    } else { out.push(r); }
+  });
+  Object.values(map).forEach(s => {
+    s.parts.length > 1 ? out.push(s) : out.push({ ...s, isSeries:false, url:s.parts[0]?.url||'' });
+  });
+  return out;
+}
+
+// ── State ────────────────────────────────────────────────────────
+let allResources = [], activeFilter='all', activeSpeaker=null, searchQuery='';
+
+function typeLabel(t) { return {lecture:'Lecture',seminar:'Seminar',publication:'Publication',article:'Article'}[t]||t; }
+
+function matches(item) {
+  const q=searchQuery.toLowerCase(), sp=(item.speaker||'').toLowerCase(), ti=(item.title||'').toLowerCase(), to=(item.topics||'').toLowerCase();
+  return (activeFilter==='all'||item.type===activeFilter)
+    && (!activeSpeaker||sp.includes(activeSpeaker.toLowerCase())||activeSpeaker.toLowerCase().includes(sp))
+    && (!q||ti.includes(q)||sp.includes(q)||to.includes(q));
+}
+
+// ── Render grid ──────────────────────────────────────────────────
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  if (!allResources.length) {
+    grid.innerHTML = '<div class="error-state">Could not load resources. Please refresh the page.<br>If the problem continues, the Google Sheet may need to be re-published.</div>';
+    return;
+  }
+  const filtered = allResources.filter(matches).sort((a,b)=>(b.year||0)-(a.year||0));
+  document.getElementById('result-count').textContent =
+    filtered.length===allResources.length ? `${filtered.length} resources` : `${filtered.length} of ${allResources.length}`;
+  if (!filtered.length) { grid.innerHTML='<div class="no-results">No resources found.</div>'; return; }
+
+  grid.innerHTML = filtered.map(item => {
+    if (!item.isSeries) return `<a href="${item.url||'#'}" target="_blank" rel="noopener" class="resource-card">
+      <div class="card-tag">${typeLabel(item.type)}${item.topics?' · '+item.topics:''}</div>
+      <div class="card-title">${item.title}</div>
+      <div class="card-meta"><span>${item.speaker}</span>${item.year?`<span>${item.year}</span>`:''}</div>
+      <div class="card-arrow">↗</div></a>`;
+    return `<div class="series-card" id="series-${item.id}">
+      <div class="series-header" onclick="toggleSeries('${item.id}')">
+        <div class="series-header-text">
+          <div class="card-tag">${typeLabel(item.type)} · ${item.parts.length} parts${item.topics?' · '+item.topics:''}</div>
+          <div class="card-title">${item.title}</div>
+          <div class="card-meta"><span>${item.speaker}</span>${item.year?`<span>${item.year}</span>`:''}</div>
+        </div>
+        <div class="series-toggle">▾</div>
+      </div>
+      <div class="series-parts">${item.parts.map((p,i)=>`
+        <a href="${p.url}" target="_blank" rel="noopener" class="series-part">
+          <span class="part-num">${i+1}</span><span class="part-label">${p.label}</span><span class="part-arrow">↗</span>
+        </a>`).join('')}</div></div>`;
+  }).join('');
+}
+
+function toggleSeries(id) { document.getElementById('series-'+id)?.classList.toggle('open'); }
+
+// ── Render tutors ────────────────────────────────────────────────
+function countForSpeaker(name) {
+  const s=name.toLowerCase();
+  return allResources.filter(r=>{ const sp=(r.speaker||'').toLowerCase(); return sp.includes(s)||s.includes(sp); }).length;
+}
+
+function renderTutors() {
+  document.getElementById('tutors-grid').innerHTML = TUTORS.map(t => {
+    const count = countForSpeaker(t.speaker);
+    return `<div class="tutor-card" onclick="filterBySpeaker('${t.speaker}',this)">
+      <div class="tutor-initial">${t.name.charAt(0)}</div>
+      <div class="tutor-name">${t.name}</div>
+      <div class="tutor-bio">${t.bio}</div>
+      ${count?`<div class="tutor-count">${count} contribution${count!==1?'s':''} in the library</div>`:''}
+      <div class="tutor-filter-hint">Click to see all their work ↓</div>
+    </div>`;
+  }).join('');
+}
+
+function filterBySpeaker(speaker, cardEl) {
+  if (activeSpeaker===speaker) {
+    activeSpeaker=null;
+    document.querySelectorAll('.tutor-card').forEach(c=>c.classList.remove('highlighted'));
+    resetPills();
+  } else {
+    activeSpeaker=speaker; activeFilter='all'; searchQuery='';
+    document.getElementById('search-input').value='';
+    resetPills();
+    document.querySelectorAll('.tutor-card').forEach(c=>c.classList.remove('highlighted'));
+    cardEl.classList.add('highlighted');
+  }
+  renderGrid();
+  document.getElementById('all-resources').scrollIntoView({behavior:'smooth'});
+}
+
+function resetPills() {
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  document.querySelector('.pill[data-filter="all"]').classList.add('active');
+}
+
+document.querySelectorAll('.pill[data-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeFilter=btn.dataset.filter; activeSpeaker=null;
+    document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tutor-card').forEach(c=>c.classList.remove('highlighted'));
+    renderGrid();
+  });
+});
+
+document.getElementById('search-input').addEventListener('input', e => {
+  searchQuery=e.target.value; activeSpeaker=null;
+  document.querySelectorAll('.tutor-card').forEach(c=>c.classList.remove('highlighted'));
+  renderGrid();
+});
+
+// ── Boot ─────────────────────────────────────────────────────────
+async function init() {
+  const results = await Promise.all(SHEETS.map(fetchSheet));
+  allResources = groupSeries(results.flat());
+  document.getElementById('total-count').textContent = allResources.length;
+  renderGrid();
+  renderTutors();
+}
+
+init();
+</script>
+</body>
+</html>
