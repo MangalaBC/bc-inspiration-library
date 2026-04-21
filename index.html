@@ -106,9 +106,12 @@
   .tutor-count { margin-top: 0.8rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dark); }
   .tutor-filter-hint { font-size: 0.72rem; color: var(--ink-faint); margin-top: 0.3rem; }
 
-  footer { border-top: 0.5px solid var(--border); padding: 2rem 4vw; display: flex; justify-content: space-between; align-items: center; }
+  /* FOOTER */
+  footer { border-top: 0.5px solid var(--border); padding: 2.5rem 4vw; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .footer-logo { height: 64px; width: auto; opacity: 0.85; }
+  .footer-right { text-align: right; }
   .footer-text { font-size: 0.78rem; color: var(--ink-soft); font-weight: 300; }
-  .footer-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: var(--ink-faint); }
+  .footer-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: var(--ink-faint); margin-top: 0.2rem; }
 
   @media (max-width: 720px) {
     header { flex-direction: column; align-items: flex-start; gap: 1rem; }
@@ -116,7 +119,8 @@
     .hero-ornament { display: none; }
     .search-wrap { margin-left: 0; width: 100%; }
     .search-input { width: 100%; }
-    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+    footer { flex-direction: column; align-items: center; text-align: center; }
+    .footer-right { text-align: center; }
   }
 </style>
 </head>
@@ -190,16 +194,14 @@
 </section>
 
 <footer>
-  <div class="footer-text">© 2026 Bhaktivedanta College · Tiegemberg, Belgium</div>
-  <div class="footer-note">Growing with every course</div>
+  <img src="BHAKTIVEDANTA-COLLEGE-Logo-Color.png" alt="Bhaktivedanta College" class="footer-logo">
+  <div class="footer-right">
+    <div class="footer-text">© 2026 Bhaktivedanta College · Durbuy, Belgium</div>
+    <div class="footer-note">Growing with every course</div>
+  </div>
 </footer>
 
 <script>
-// ═══════════════════════════════════════════════════════
-// GOOGLE SHEETS — reads live from your published sheet
-// To update the library: just edit the Google Sheet.
-// Uses the Sheets JSON API (no CORS issues on GitHub Pages)
-// ═══════════════════════════════════════════════════════
 const SHEET_ID = '1oFkCe1AVsTCvqhAPpZMX6URDO7jqorOJBOvKTPQUOls';
 const SHEETS = [
   { gid: '0',          type: 'lecture'     },
@@ -208,9 +210,6 @@ const SHEETS = [
   { gid: '1559528348', type: 'article'     },
 ];
 
-// ═══════════════════════════════════════════════════════
-// TUTORS — edit the bio field for each tutor.
-// ═══════════════════════════════════════════════════════
 const TUTORS = [
   { name:"Gopinathacarya Prabhu",  speaker:"Gopinathacharya Das",   bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
   { name:"Krishna Ksetra Swami",   speaker:"Krishna Kshetra Swami", bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
@@ -226,22 +225,23 @@ const TUTORS = [
   { name:"Radhika Raman Prabhu",   speaker:"Radhika Raman Das",     bio:"Add a short description of this tutor's background, area of speciality, and devotional work." },
 ];
 
-// ── Fetch one sheet via JSON API (no CORS issues) ────────────────
+// Titles that should have their speaker overridden
+const SPEAKER_OVERRIDES = {
+  'the art of speaking for krishna': 'Radhika Raman Das',
+};
+
 async function fetchSheet({ gid, type }) {
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${gid}`;
   try {
     const res  = await fetch(url);
     const text = await res.text();
-    // Google wraps the JSON in  /*O_o*/\ngoogle.visualization.Query.setResponse(...)
     const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);
     const cols = json.table.cols.map(c => (c.label || c.id).toLowerCase().trim());
     return (json.table.rows || []).map((row, i) => {
       const get = (...candidates) => {
         for (const c of candidates) {
           const idx = cols.findIndex(h => h.includes(c));
-          if (idx !== -1 && row.c[idx] && row.c[idx].v != null) {
-            return String(row.c[idx].v).trim();
-          }
+          if (idx !== -1 && row.c[idx] && row.c[idx].v != null) return String(row.c[idx].v).trim();
         }
         return '';
       };
@@ -252,7 +252,12 @@ async function fetchSheet({ gid, type }) {
       const format  = get('format','type','medium');
       const topics  = get('topic','key','subject','theme','tag');
       if (!title && !url2) return null;
-      return { id: type+'_'+i, type, speaker, title, url: url2, year, format, topics, isSeries: false };
+
+      // Apply speaker override if title matches
+      const titleKey = title.toLowerCase().trim();
+      const resolvedSpeaker = SPEAKER_OVERRIDES[titleKey] || speaker;
+
+      return { id: type+'_'+i, type, speaker: resolvedSpeaker, title, url: url2, year, format, topics, isSeries: false };
     }).filter(Boolean);
   } catch(e) {
     console.warn('Failed to load sheet gid='+gid, e);
@@ -260,7 +265,6 @@ async function fetchSheet({ gid, type }) {
   }
 }
 
-// ── Auto-group multi-part series ─────────────────────────────────
 function groupSeries(items) {
   const map = {}, out = [];
   items.forEach(r => {
@@ -280,7 +284,6 @@ function groupSeries(items) {
   return out;
 }
 
-// ── State ────────────────────────────────────────────────────────
 let allResources = [], activeFilter='all', activeSpeaker=null, searchQuery='';
 
 function typeLabel(t) { return {lecture:'Lecture',seminar:'Seminar',publication:'Publication',article:'Article'}[t]||t; }
@@ -292,11 +295,10 @@ function matches(item) {
     && (!q||ti.includes(q)||sp.includes(q)||to.includes(q));
 }
 
-// ── Render grid ──────────────────────────────────────────────────
 function renderGrid() {
   const grid = document.getElementById('grid');
   if (!allResources.length) {
-    grid.innerHTML = '<div class="error-state">Could not load resources. Please refresh the page.<br>If the problem continues, the Google Sheet may need to be re-published.</div>';
+    grid.innerHTML = '<div class="error-state">Could not load resources. Please refresh the page.</div>';
     return;
   }
   const filtered = allResources.filter(matches).sort((a,b)=>(b.year||0)-(a.year||0));
@@ -328,7 +330,6 @@ function renderGrid() {
 
 function toggleSeries(id) { document.getElementById('series-'+id)?.classList.toggle('open'); }
 
-// ── Render tutors ────────────────────────────────────────────────
 function countForSpeaker(name) {
   const s=name.toLowerCase();
   return allResources.filter(r=>{ const sp=(r.speaker||'').toLowerCase(); return sp.includes(s)||s.includes(sp); }).length;
@@ -384,7 +385,6 @@ document.getElementById('search-input').addEventListener('input', e => {
   renderGrid();
 });
 
-// ── Boot ─────────────────────────────────────────────────────────
 async function init() {
   const results = await Promise.all(SHEETS.map(fetchSheet));
   allResources = groupSeries(results.flat());
