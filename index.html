@@ -273,7 +273,7 @@ async function fetchSheet({ gid, type }) {
 function groupSeries(items) {
   const map = {}, out = [];
   items.forEach(r => {
-    const m = r.title.match(/^(.*?)\s*[-–—]?\s*(part|session|deel)\s*(\d+)\s*$/i);
+    const m = r.title.match(/^(.*?)\s*[-–—]?\s*(part|session|deel)\s*(\d+|final|last)\s*$/i);
     if (m) {
       const base  = m[1].trim();
       const label = m[2].charAt(0).toUpperCase() + m[2].slice(1).toLowerCase() + ' ' + m[3];
@@ -293,11 +293,88 @@ let allResources = [], activeFilter='all', activeSpeaker=null, searchQuery='';
 
 function typeLabel(t) { return {lecture:'Lecture',seminar:'Seminar',publication:'Publication',article:'Article'}[t]||t; }
 
+// Speaker aliases: maps every name variation in the sheet to the canonical tutor speaker key
+const SPEAKER_ALIASES = {
+  // Radhika Ramana Das
+  'radhika raman das':                 'radhika ramana das',
+  'radhika raman prabhu':              'radhika ramana das',
+  'radhika ramana prabhu':             'radhika ramana das',
+  'ravi gupta':                        'radhika ramana das',
+  'ravi m. gupta':                     'radhika ramana das',
+  'dr. ravi gupta':                    'radhika ramana das',
+  'bhaktivedanta college faculty':     'radhika ramana das',
+  // Krishna Kshetra Swami
+  'krishna ksetra swami':              'krishna kshetra swami',
+  'kenneth valpey':                    'krishna kshetra swami',
+  'kenneth r. valpey':                 'krishna kshetra swami',
+  // Gopinathacharya Das
+  'gopinath acharya das':              'gopinathacharya das',
+  'gopinathacarya das':                'gopinathacharya das',
+  'rembert lutjeharms':                'gopinathacharya das',
+  'dr. rembert lutjeharms':            'gopinathacharya das',
+  // Bhrigupada Das
+  'bhrigu pada das':                   'bhrigupada das',
+  'mans broo':                         'bhrigupada das',
+  'måns broo':                         'bhrigupada das',
+  'dr. mans broo':                     'bhrigupada das',
+  // Rasamandala Das
+  'rasamandala prabhu':                'rasamandala das',
+  'ross andrew':                       'rasamandala das',
+  'andrew ross':                       'rasamandala das',
+  // Shaunaka Rishi Das
+  'shaunaka rishi prabhu':             'shaunaka rishi das',
+  'shaunaka rishi':                    'shaunaka rishi das',
+  // Yogeshvara Prabhu / Joshua Greene
+  'yogesvara das':                     'yogeshvar prabhu',
+  'yogeshvara das':                    'yogeshvar prabhu',
+  'joshua m. greene':                  'yogeshvar prabhu',
+  'joshua greene':                     'yogeshvar prabhu',
+  // Ferdinando Sardella
+  'dr. ferdinando sardella':           'ferdinando sardella',
+  // Angela Burt
+  'dr. angela burt':                   'angela burt',
+  // Kiyokazu Okita
+  'dr. kiyokazu okita':                'kiyokazu okita',
+  // Gopal K. Gupta
+  'gopal gupta':                       'gopal k. gupta',
+  'dr. gopal gupta':                   'gopal k. gupta',
+  'dr. gopal k. gupta':                'gopal k. gupta',
+  // Hrvoje Cargonja
+  'hrvoje čargonja':                   'hrvoje cargonja',
+};
+
+// Resources that should NOT be linked to any tutor (shared/multi-author works)
+const UNLINKED_RESOURCES = [
+  'iskcon communications journal',
+  'vaishnava news',
+];
+
+function isUnlinked(title) {
+  const t = (title||'').toLowerCase();
+  return UNLINKED_RESOURCES.some(u => t.includes(u));
+}
+
+function normSpeaker(raw) {
+  const key = (raw||'').toLowerCase().trim();
+  return SPEAKER_ALIASES[key] || key;
+}
+
+function speakerForFilter(item) {
+  if (isUnlinked(item.title)) return '__unlinked__';
+  return normSpeaker(item.speaker);
+}
+
 function matches(item) {
-  const q=searchQuery.toLowerCase(), sp=(item.speaker||'').toLowerCase(), ti=(item.title||'').toLowerCase(), to=(item.topics||'').toLowerCase();
-  return (activeFilter==='all'||item.type===activeFilter)
-    && (!activeSpeaker||sp.includes(activeSpeaker.toLowerCase())||activeSpeaker.toLowerCase().includes(sp))
-    && (!q||ti.includes(q)||sp.includes(q)||to.includes(q));
+  const q  = searchQuery.toLowerCase();
+  const sp = speakerForFilter(item);
+  const ti = (item.title  ||'').toLowerCase();
+  const to = (item.topics ||'').toLowerCase();
+  const matchFilter  = activeFilter==='all' || item.type===activeFilter;
+  const matchSpeaker = !activeSpeaker || sp === normSpeaker(activeSpeaker);
+  const matchSearch  = !q || ti.includes(q) || sp.includes(q) || to.includes(q);
+  // Unlinked resources show in general browsing/search but never when filtering by speaker
+  if (activeSpeaker && sp === '__unlinked__') return false;
+  return matchFilter && matchSpeaker && matchSearch;
 }
 
 function renderGrid() {
@@ -336,14 +413,15 @@ function renderGrid() {
 function toggleSeries(id) { document.getElementById('series-'+id)?.classList.toggle('open'); }
 
 function countForSpeaker(name) {
-  const s=name.toLowerCase();
-  return allResources.filter(r=>{ const sp=(r.speaker||'').toLowerCase(); return sp.includes(s)||s.includes(sp); }).length;
+  const s = normSpeaker(name);
+  return allResources.filter(r => !isUnlinked(r.title) && normSpeaker(r.speaker) === s).length;
 }
 
 function renderTutors() {
   document.getElementById('tutors-grid').innerHTML = TUTORS.map(t => {
     const count = countForSpeaker(t.speaker);
-    return `<div class="tutor-card" onclick="filterBySpeaker('${t.speaker}',this)">
+    const safeSpk = t.speaker.replace(/'/g, "\'");
+    return `<div class="tutor-card" onclick="filterBySpeaker('${safeSpk}',this)">
       <div class="tutor-initial">${t.name.charAt(0)}</div>
       <div class="tutor-name">${t.name}</div>
       <div class="tutor-bio">${t.bio}</div>
