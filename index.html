@@ -194,7 +194,7 @@
 </section>
 
 <footer>
-  <img src="BHAKTIVEDANTA-COLLEGE-Logo-Color.png" alt="Bhaktivedanta College" class="footer-logo">
+  <img src="logo.png" alt="Bhaktivedanta College" class="footer-logo">
   <div class="footer-right">
     <div class="footer-text">© 2026 Bhaktivedanta College · Durbuy, Belgium</div>
     <div class="footer-note">Growing with every course</div>
@@ -291,6 +291,7 @@ function typeLabel(t) { return {lecture:'Lecture',seminar:'Seminar',publication:
 // Speaker aliases: maps every name variation in the sheet to the canonical tutor speaker key
 const SPEAKER_ALIASES = {
   // Radhika Ramana Das
+  'radhika ramana das':                'radhika ramana das',
   'radhika raman das':                 'radhika ramana das',
   'radhika raman prabhu':              'radhika ramana das',
   'radhika ramana prabhu':             'radhika ramana das',
@@ -299,43 +300,64 @@ const SPEAKER_ALIASES = {
   'dr. ravi gupta':                    'radhika ramana das',
   'bhaktivedanta college faculty':     'radhika ramana das',
   // Krishna Kshetra Swami
+  'krishna kshetra swami':             'krishna kshetra swami',
   'krishna ksetra swami':              'krishna kshetra swami',
   'kenneth valpey':                    'krishna kshetra swami',
   'kenneth r. valpey':                 'krishna kshetra swami',
   // Gopinathacharya Das
+  'gopinathacharya das':               'gopinathacharya das',
   'gopinath acharya das':              'gopinathacharya das',
   'gopinathacarya das':                'gopinathacharya das',
   'rembert lutjeharms':                'gopinathacharya das',
   'dr. rembert lutjeharms':            'gopinathacharya das',
   // Bhrigupada Das
+  'bhrigupada das':                    'bhrigupada das',
   'bhrigu pada das':                   'bhrigupada das',
   'mans broo':                         'bhrigupada das',
   'måns broo':                         'bhrigupada das',
   'dr. mans broo':                     'bhrigupada das',
   // Rasamandala Das
+  'rasamandala das':                   'rasamandala das',
   'rasamandala prabhu':                'rasamandala das',
   'ross andrew':                       'rasamandala das',
   'andrew ross':                       'rasamandala das',
   // Shaunaka Rishi Das
+  'shaunaka rishi das':                'shaunaka rishi das',
   'shaunaka rishi prabhu':             'shaunaka rishi das',
   'shaunaka rishi':                    'shaunaka rishi das',
-  // Yogeshvara Prabhu / Joshua Greene
-  'yogesvara das':                     'yogeshvar prabhu',
+  // Yogeshvara Das / Joshua Greene
   'yogeshvara das':                    'yogeshvar prabhu',
+  'yogesvara das':                     'yogeshvar prabhu',
+  'yogeshvar prabhu':                  'yogeshvar prabhu',
   'joshua m. greene':                  'yogeshvar prabhu',
   'joshua greene':                     'yogeshvar prabhu',
-  // Ferdinando Sardella
-  'dr. ferdinando sardella':           'ferdinando sardella',
-  // Angela Burt
-  'dr. angela burt':                   'angela burt',
-  // Kiyokazu Okita
-  'dr. kiyokazu okita':                'kiyokazu okita',
-  // Gopal K. Gupta
-  'gopal gupta':                       'gopal k. gupta',
-  'dr. gopal gupta':                   'gopal k. gupta',
-  'dr. gopal k. gupta':                'gopal k. gupta',
-  // Hrvoje Cargonja
-  'hrvoje čargonja':                   'hrvoje cargonja',
+  // Pranava Das
+  'pranava das':                       'pranava prabhu',
+  'pranava prabhu':                    'pranava prabhu',
+  'ferdinando sardella':               'pranava prabhu',
+  'dr. ferdinando sardella':           'pranava prabhu',
+  // Arya Dasi
+  'arya dasi':                         'arya prabhu',
+  'arya prabhu':                       'arya prabhu',
+  'angela burt':                       'arya prabhu',
+  'dr. angela burt':                   'arya prabhu',
+  // Krsna Sarana Das
+  'krsna sarana das':                  'krsna sarana prabhu',
+  'krsna sarana prabhu':               'krsna sarana prabhu',
+  'kiyokazu okita':                    'krsna sarana prabhu',
+  'dr. kiyokazu okita':                'krsna sarana prabhu',
+  // Gopal Hari Das
+  'gopal hari das':                    'gopal hari prabhu',
+  'gopal hari prabhu':                 'gopal hari prabhu',
+  'gopal k. gupta':                    'gopal hari prabhu',
+  'gopal gupta':                       'gopal hari prabhu',
+  'dr. gopal gupta':                   'gopal hari prabhu',
+  'dr. gopal k. gupta':                'gopal hari prabhu',
+  // Ramhari Das
+  'ramhari das':                       'ramhari prabhu',
+  'ramhari prabhu':                    'ramhari prabhu',
+  'hrvoje cargonja':                   'ramhari prabhu',
+  'hrvoje čargonja':                   'ramhari prabhu',
 };
 
 // Resources that should NOT be linked to any tutor (shared/multi-author works)
@@ -354,21 +376,24 @@ function normSpeaker(raw) {
   return SPEAKER_ALIASES[key] || key;
 }
 
-function speakerForFilter(item) {
-  if (isUnlinked(item.title)) return '__unlinked__';
-  return normSpeaker(item.speaker);
+// Returns array of resolved canonical speaker keys for an item
+// Handles multiple authors separated by &
+function resolvedspeakers(item) {
+  if (isUnlinked(item.title)) return ['__unlinked__'];
+  const raw = item.speaker || '';
+  return raw.split('&').map(s => normSpeaker(s.trim()));
 }
 
 function matches(item) {
-  const q  = searchQuery.toLowerCase();
-  const sp = speakerForFilter(item);
-  const ti = (item.title  ||'').toLowerCase();
-  const to = (item.topics ||'').toLowerCase();
+  const q   = searchQuery.toLowerCase();
+  const sps = resolvedspeakers(item);
+  const ti  = (item.title  ||'').toLowerCase();
+  const to  = (item.topics ||'').toLowerCase();
   const matchFilter  = activeFilter==='all' || item.type===activeFilter;
-  const matchSpeaker = !activeSpeaker || sp === normSpeaker(activeSpeaker);
-  const matchSearch  = !q || ti.includes(q) || sp.includes(q) || to.includes(q);
+  const matchSpeaker = !activeSpeaker || sps.includes(normSpeaker(activeSpeaker));
+  const matchSearch  = !q || ti.includes(q) || sps.some(s=>s.includes(q)) || to.includes(q);
   // Unlinked resources show in general browsing/search but never when filtering by speaker
-  if (activeSpeaker && sp === '__unlinked__') return false;
+  if (activeSpeaker && sps.includes('__unlinked__')) return false;
   return matchFilter && matchSpeaker && matchSearch;
 }
 
@@ -409,7 +434,7 @@ function toggleSeries(id) { document.getElementById('series-'+id)?.classList.tog
 
 function countForSpeaker(name) {
   const s = normSpeaker(name);
-  return allResources.filter(r => !isUnlinked(r.title) && normSpeaker(r.speaker) === s).length;
+  return allResources.filter(r => !isUnlinked(r.title) && resolvedspeakers(r).includes(s)).length;
 }
 
 function renderTutors() {
